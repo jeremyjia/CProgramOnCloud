@@ -4,3 +4,4 @@ export LANG=zh_CN.GBK
 
 g++ -o demo demo.cpp -lopencv_core -lopencv_highgui -lopencv_imgcodecs -lopencv_imgproc
 g++ -o demo2 demo2.cpp CvxText.cpp -lopencv_core -lopencv_highgui -lopencv_imgcodecs -lopencv_imgproc -lfreetype
+g++ -o demo3 demo3.cpp -lopencv_core `pkg-config --cflags --libs opencv`
