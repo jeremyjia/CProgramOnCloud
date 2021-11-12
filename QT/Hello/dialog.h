@@ -3,6 +3,9 @@
 
 #include <QDialog>
 #include <QLabel>
+#include <QPainter>
+#include <qrandom.h>
+#include <QTime>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Dialog; }
@@ -18,6 +21,7 @@ public:
 
 private:
     Ui::Dialog *ui;
+    void paintEvent(QPaintEvent *event);
 
 public slots:
     bool eventFilter(QObject *target, QEvent *e);

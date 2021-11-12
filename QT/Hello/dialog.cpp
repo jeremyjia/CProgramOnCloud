@@ -14,16 +14,16 @@ Dialog::Dialog(QWidget *parent)
     //Jeremy
     m_btn1 = new QPushButton("Button-1", this);
     m_btn1->resize(100,50);
-    m_btn1->move(10,70);
+    m_btn1->move(300,70);
 
     m_btn2 = new QPushButton("Button-2", this);
     m_btn2->resize(100,50);
-    m_btn2->move(10,120);
+    m_btn2->move(300,120);
 
     m_label = new QLabel("Label", this);
     m_label->setStyleSheet("border:2px solid green;border-radius: 3px;background: #EEEEEE");
     m_label->resize(200, 50);
-    m_label ->move(10,10);
+    m_label ->move(300,10);
 
     m_btn1->installEventFilter(this);
     m_btn2->installEventFilter(this);
@@ -31,7 +31,7 @@ Dialog::Dialog(QWidget *parent)
     this->installEventFilter(this);
     setAttribute(Qt::WA_Hover, true); //Dialog
 
-    resize(400, 300);
+    resize(640, 480);
 }
 
 Dialog::~Dialog()
@@ -40,6 +40,50 @@ Dialog::~Dialog()
     delete m_btn1;
     delete m_btn2;
     delete m_label;
+}
+
+#define POS 300
+#define W   200
+
+void Dialog::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    painter.drawText(10,20, "随机数据折线图");
+
+    //X
+    painter.drawLine(10,POS, POS+10,POS);
+    painter.drawText(POS+10,POS+10,"X");
+    for (int i=2;i<31;i++ ) {
+        painter.drawLine(10*i, POS-5, 10*i, POS);
+        if(i%4==0){
+          painter.drawText(10*i, POS+10, QString::number(10*i));
+        }
+    }
+
+    //Y
+    painter.drawLine(10,POS, 10,10+(POS-W));
+    painter.drawText(10,10+(POS-W), "Y");
+    for (int i=2;i<20;i++ ) {
+        painter.drawLine(10,10*i+(POS-W), 15, 10*i+(POS-W));
+        if(i%4==0){
+            painter.drawText(15,10*(20-i)+(POS-W), QString::number(10*i));
+        }
+    }
+
+    //[0,190]
+    int x1,y1,x2,y2;
+    x1=10;
+    y1 = qrand()%191+(POS-W);
+    for (int i=2;i<30;i++) {
+        x2=10*i;
+        y2=qrand()%191+(POS-W);
+        painter.drawLine(x1,y1,x2,y2);
+        x1=x2;
+        y1=y2;
+        painter.drawPoint(QPoint(x2,y2));
+     }
+
+
 }
 
 bool Dialog::eventFilter(QObject *obj, QEvent *event)
